@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-header">{{ pageTitle }}</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2">
+        Filter by:
+      </div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]="filterContent" />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <h4>Filter by: {{ filterContent }}</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table" *ngIf="products && products.length">
+        <tr>
+          <th>
+            <button (click)="toggleShowingImage()" class="btn btn-primary">
+              {{ isShowImage ? "Hide" : "Show" }} images
+            </button>
+          </th>
+          <th>Product</th>
+          <th>Code</th>
+          <th>Available</th>
+          <th>Price</th>
+          <th>5 Star rating</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>
+              <img
+                *ngIf="isShowImage"
+                [src]="product.imageUrl"
+                [title]="product.productCode"
+                width="20"
+                height="20"
+              />
+            </td>
+            <td>
+              <a [routerLink]="['/products', product.productId]">{{
+                product.productName | uppercase
+              }}</a>
+            </td>
+            <td>{{ product.productCode }}</td>
+            <td>{{ product.releaseDate }}</td>
+            <td>{{ product.price | currency: "VND" }}</td>
+            <td>{{ product.starRating }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
